@@ -56,10 +56,12 @@ class TimerInterval(Thread):
 def callback_output(func):
     def wrapper(cmd, event_handler, verbose):
         try:
+            start_time = time.time() * 1000
             out, file_count = func(cmd, event_handler, verbose)
             print '%s Files: %i Cmd run: %s' % (time.strftime("%Y %h %d %H:%M:%S", time.localtime()), file_count, cmd)
             if verbose:
                 print out
+            print 'Execute time: %i ms' % int(time.time() * 1000 - start_time)
         except EmptyEventsWarning:
             pass
         except CmdError as e:

@@ -10,13 +10,14 @@ from fsevents import Stream
 
 produce_need = False
 
-def produce(cmd, verbose = False):
+
+def produce(cmd, verbose=False):
     """
     Perform command if necessary
     :param cmd: shell command
     """
     global produce_need
-    if False == produce_need:
+    if not produce_need:
         return None
 
     produce_need = False
@@ -33,6 +34,7 @@ def produce(cmd, verbose = False):
         output(error)
         output('')
 
+
 def watch_change_callback(event):
     """
     Callback for fsevent stream
@@ -41,12 +43,14 @@ def watch_change_callback(event):
     produce_need = True
     return event.name
 
-def output(text, delimiter = '-', delimiter_repeat = 50):
-    if (len(delimiter) > 0):
+
+def output(text, delimiter='-', delimiter_repeat=50):
+    if len(delimiter) > 0:
         print delimiter * delimiter_repeat
 
-    if (len(text) > 0):
+    if len(text) > 0:
         print text
+
 
 def main():
     arg_parser = argparse.ArgumentParser()
@@ -58,7 +62,7 @@ def main():
     args = arg_parser.parse_args()
     path = args.path
 
-    if os.path.isdir(path) == False:
+    if not os.path.isdir(path):
         output('Path "%s" is not a directory' % path, '')
         return
 

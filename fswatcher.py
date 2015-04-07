@@ -58,10 +58,10 @@ def callback_output(func):
         try:
             start_time = time.time() * 1000
             out, file_count = func(cmd, event_handler, verbose)
-            print '%s Files: %i Cmd run: %s' % (time.strftime("%Y %h %d %H:%M:%S", time.localtime()), file_count, cmd)
+            print '\033[41m%s\033[0m Files: \033[32m%i\033[0m Cmd run: \033[33m%s\033[0m' % (time.strftime("%Y %h %d %H:%M:%S", time.localtime()), file_count, cmd)
             if verbose:
                 print out
-            print 'Execute time: %i ms' % int(time.time() * 1000 - start_time)
+            print 'Execute time: \033[32m%i ms\033[0m' % int(time.time() * 1000 - start_time)
         except EmptyEventsWarning:
             pass
         except CmdError as e:

@@ -2,6 +2,11 @@
 
 Watching a folder and run received command if one of the files will be changed.
 
+###Install
+```shell
+pip install -r requirements.txt
+```
+
 ###How to use
 
 ```shell

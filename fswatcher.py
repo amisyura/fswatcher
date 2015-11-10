@@ -72,8 +72,8 @@ def callback_output(func):
 
 @callback_output
 def callback_func(cmd, event_handler, verbose=False):
-    if not isinstance(cmd, str):
-        raise TypeError('Cmd must be a string')
+    if not isinstance(cmd, list) or len(cmd) == 0:
+        raise TypeError('Command must be entered')
 
     if not isinstance(event_handler, EventHandler):
         raise TypeError('Event handler is not a handler =)')
@@ -85,20 +85,26 @@ def callback_func(cmd, event_handler, verbose=False):
 
     event_handler.clear()
 
-    pipe = Popen(cmd, shell=True, stdout=subprocess.PIPE)
-    out, error = pipe.communicate()
+    stdout = ''
 
-    if error:
-        raise CmdError(error)
+    for command in cmd:
+        print command
+        pipe = Popen(command, shell=True, stdout=subprocess.PIPE)
+        out, error = pipe.communicate()
 
-    return out, file_count
+        stdout += '\n' + command + '\n' + out
+
+        if error:
+            raise CmdError(error)
+
+    return stdout, file_count
 
 
 def main():
     arg_parser = argparse.ArgumentParser()
 
     arg_parser.add_argument('path')
-    arg_parser.add_argument('-c', '--cmd', required=True, type=str, nargs='?', help='Console command for execute')
+    arg_parser.add_argument('-c', '--cmd', required=True, nargs='+', help='Console command for execute')
     arg_parser.add_argument('-d', '--delay', type=int, default=5, nargs='?', help='Synchronization delay in seconds')
     arg_parser.add_argument('-v', '--verbose', action='store_true', help='verbose flag')
 

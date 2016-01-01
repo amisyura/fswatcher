@@ -1,1 +1,1 @@
-MacFSEvents==0.4
+MacFSEvents==0.7

@@ -176,8 +176,8 @@ def main():
     arg_parser.add_argument('path')
     arg_parser.add_argument('-c', '--cmd', required=True, nargs='+', help='Console command for execute')
     arg_parser.add_argument('-d', '--delay', type=int, default=5, nargs='?', help='Synchronization delay in seconds')
-    arg_parser.add_argument('-f', '--files', action='store_true')
-    arg_parser.add_argument('-v', '--verbose', action='store_true', help='verbose flag')
+    arg_parser.add_argument('-f', '--files', action='store_true', help="show changed files snapshot")
+    arg_parser.add_argument('-v', '--verbose', action='store_true', help='increase verbosity')
 
     try:
         args = arg_parser.parse_args()

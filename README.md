@@ -2,27 +2,31 @@
 
 Watching a folder and run received command if one of the files will be changed.
 
-###Install
+##Install
 ```shell
 pip install -r requirements.txt
 ```
 
-###How to use
+##Usage
 
 ```shell
-fswatcher.py [-h] -c [CMD] [-d [DELAY]] [-v] path
+fswatcher.py -c CMD [CMD ...] [-d [DELAY]] [-f] [-v] [-h] path
 ```
 
+######Required arguments:
+* **-c CMD [CMD ...], --cmd CMD [CMD ...]** - One or more shell commands for execute
 * **path** - the path that you want to watching (is required)
-* **-c** - the shell command for execute
-* **-d** - delay in seconds after which the command will be executed
-* **-v** - verbose output
 
-#####Example
+######Optional arguments:
+* **-d [DELAY], --delay [DELAY]** - delay in seconds after which the command will be executed
+* **-f, --files** - show changed files snapshot
+* **-v, --verbose** - increase verbosity
+
+####Example
 ```shell
 fswatcher.py ~/dev/mysite/ -d=2 -c="rsync -az --delete --exclude=.git /Users/username/dev/mysite dev@dev.host.com/dev/mynewsite"
 ```
-##### or
+####or
 ```shell
 fswatcher.py ~ -d=10 -c="ls -la ~ > snapshot.log"
 ```
